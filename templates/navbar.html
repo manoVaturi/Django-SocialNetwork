@@ -1,0 +1,62 @@
+{% load static %}
+
+<header class="header header--loggedIn">
+    <div class="container">
+        <a href="/" class="header__logo">
+            <img src="{% static 'assets/logo.svg' %}" alt=""/>
+            <h1>StudyBuddy</h1>
+        </a>
+
+        <form class="header__search" method="GET" action="{% url 'home' %}">
+            <label>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                </svg>
+                <input name="q" placeholder="Search for rooms..."/>
+            </label>
+        </form>
+
+        <nav class="header__menu">
+            {% if user.is_authenticated %}
+                <!-- Logged In -->
+                <div class="header__user">
+                    <a href="{% url 'edit-user' %}">
+                        <div class="avatar avatar--medium active">
+                            <img src="https://randomuser.me/api/portraits/men/37.jpg" alt=""/>
+                        </div>
+                        <p>John Doe <span>@{{ user.username }}</span></p>
+                    </a>
+                    <button class="dropdown-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                             viewBox="0 0 32 32">
+                            <title>chevron-down</title>
+                            <path d="M16 21l-13-13h-3l16 16 16-16h-3l-13 13z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+            {% else %}
+                <a href="{% url 'login' %}">
+                    <img src="{% static 'assets/avatar.svg' %}" alt=""/>
+                    <p>Login</p>
+                </a>
+
+            {% endif %}
+
+            <div class="dropdown-menu">
+                <a href="{% url 'edit-user' %}" class="dropdown-link"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                         viewBox="0 0 32 32">
+                    </svg>
+                    Settings</a>
+
+                <a href="{% url 'logout' %}" class="dropdown-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                         viewBox="0 0 32 32">
+                    </svg>
+                    Logout</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
